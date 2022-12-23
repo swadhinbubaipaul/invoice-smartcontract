@@ -7,12 +7,13 @@ async function getInvoice() {
   let ids = await ledger.getInvoiceIds(buyerPan);
   console.log("Id's are: ");
   ids = ids.map((id) => id.toNumber());
+  console.log(ids);
 
   for (id of ids) {
     console.log(`Invoice no ${id}:`);
     const { sellerPan, invoiceAmount, invoiceDate, status } =
       await ledger.getInvoiceById(id);
-    console.log(sellerPan, invoiceAmount.toString(), invoiceDate, status);
+    console.log(sellerPan, invoiceAmount, invoiceDate, status);
   }
 }
 

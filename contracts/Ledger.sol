@@ -6,9 +6,9 @@ contract Ledger {
 
     struct Invoice {
         string sellerPan;
-        uint256 invoiceAmount;
+        string invoiceAmount;
         string invoiceDate;
-        bool status; // false for unpaid, true for paid
+        string status; // false for unpaid, true for paid
     }
 
     // BuyerPAN => Array of invoiceIds
@@ -20,16 +20,16 @@ contract Ledger {
     function saveInvoice(
         string memory _buyerPan,
         string memory _sellerPan,
-        uint256 _invoiceAmount,
+        string memory _invoiceAmount,
         string memory _invoiceDate,
-        bool status
+        string memory _status
     ) public {
         buyerToInvoiceId[_buyerPan].push(invoiceId);
         invoiceIdToInvoice[invoiceId] = Invoice(
             _sellerPan,
             _invoiceAmount,
             _invoiceDate,
-            status
+            _status
         );
         invoiceId++;
     }
