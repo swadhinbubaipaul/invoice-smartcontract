@@ -6,7 +6,7 @@ contract Ledger {
 
     struct Invoice {
         string sellerPan;
-        string invoiceAmount;
+        uint invoiceAmount;
         string invoiceDate;
         string status; // false for unpaid, true for paid
     }
@@ -16,14 +16,26 @@ contract Ledger {
     // invoiceId => Invoice
     mapping(uint256 => Invoice) private invoiceIdToInvoice;
 
+    // Error
+    error EmptyDetailsEntered();
+
     // Function to save Invoice data to smartcontract
     function saveInvoice(
         string memory _buyerPan,
         string memory _sellerPan,
-        string memory _invoiceAmount,
+        uint _invoiceAmount,
         string memory _invoiceDate,
         string memory _status
     ) public {
+        if (
+            bytes(_buyerPan).length == 0 ||
+            bytes(_sellerPan).length == 0 ||
+            _invoiceAmount == 0 ||
+            bytes(_invoiceDate).length == 0 ||
+            bytes(_status).length == 0
+        ) {
+            revert EmptyDetailsEntered();
+        }
         buyerToInvoiceId[_buyerPan].push(invoiceId);
         invoiceIdToInvoice[invoiceId] = Invoice(
             _sellerPan,

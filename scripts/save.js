@@ -4,7 +4,7 @@ async function saveInvoice() {
   const ledger = await ethers.getContract("Ledger");
   const buyerPan = "BUYERPAN";
   const selerPan = "SELLERPAN";
-  const invoiceAmount = "1000";
+  const invoiceAmount = 10;
   const invoiceDate = "22-12-22";
   const status = "paid";
   const tx = await ledger.saveInvoice(
@@ -15,6 +15,7 @@ async function saveInvoice() {
     status
   );
   await tx.wait(1);
+  console.log("Invoice saved successfully!");
 }
 
 saveInvoice()
