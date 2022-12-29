@@ -13,7 +13,7 @@ async function getInvoice() {
     console.log(`Invoice no ${id}:`);
     const { sellerPan, invoiceAmount, invoiceDate, status } =
       await ledger.getInvoiceById(id);
-    console.log(sellerPan, invoiceAmount, invoiceDate, status);
+    console.log(sellerPan, invoiceAmount.toString(), invoiceDate, status);
   }
 }
 
