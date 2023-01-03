@@ -13,9 +13,9 @@ const STATUS = "paid";
   ? describe.skip
   : describe("Ledger Contract", function () {
       async function deployTokenFixture() {
-        [owner] = await ethers.getSigners(); // could also do with getNamedAccounts
         const Ledger = await ethers.getContractFactory("Ledger");
         const ledger = await Ledger.deploy();
+        await ledger.deployed();
         return { ledger };
       }
 
@@ -84,7 +84,6 @@ const STATUS = "paid";
             STATUS
           );
           let ids = await ledger.getInvoiceIds(BUYERPAN);
-          console.log("Id's are: ");
           ids = ids.map((id) => id.toNumber());
           assert(ids[0] === 0);
         });
